@@ -1,6 +1,0 @@
-{
-  "uuid": "sound-switcher@irishbruse",
-  "name": "Sound Switcher",
-  "description": "A Cinnamon applet to toggle between 2 audio outputs",
-  "icon": "cs-sound"
-}

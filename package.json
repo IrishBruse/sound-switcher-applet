@@ -1,0 +1,25 @@
+{
+  "name": "audio-switcher-applet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "watch": "npm-watch",
+    "reload": "dbus-send --session --dest=org.Cinnamon.LookingGlass --type=method_call /org/Cinnamon/LookingGlass org.Cinnamon.LookingGlass.ReloadExtension string:sound-switcher@ethanconneely.com string:'APPLET'"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "@ci-types/cjs": "^6.0.2-5",
+    "npm-watch": "^0.13.0"
+  },
+  "watch": {
+    "reload": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "js,json",
+      "quiet": false
+    }
+  }
+}
