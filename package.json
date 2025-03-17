@@ -4,7 +4,7 @@
   "description": "",
   "main": "test.js",
   "scripts": {
-    "watch": "npm-watch",
+    "watch": "npm-watch reload",
     "reload": "dbus-send --session --dest=org.Cinnamon.LookingGlass --type=method_call /org/Cinnamon/LookingGlass org.Cinnamon.LookingGlass.ReloadExtension string:sound-switcher@ethanconneely.com string:'APPLET'"
   },
   "keywords": [],
@@ -16,7 +16,7 @@
   "watch": {
     "reload": {
       "patterns": [
-        "src"
+        "sound-switcher@ethanconneely.com"
       ],
       "extensions": "js,json",
       "quiet": false

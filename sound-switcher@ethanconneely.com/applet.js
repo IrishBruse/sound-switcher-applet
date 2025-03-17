@@ -1,10 +1,27 @@
+//
 const Applet = imports.ui.applet;
+const Lang = imports.lang;
 const Mainloop = imports.mainloop;
-const GLib = imports.gi.GLib;
+const Gio = imports.gi.Gio;
+const Interfaces = imports.misc.interfaces;
 const Util = imports.misc.util;
+const Cinnamon = imports.gi.Cinnamon;
+const Clutter = imports.gi.Clutter;
+const St = imports.gi.St;
 const PopupMenu = imports.ui.popupMenu;
+const GLib = imports.gi.GLib;
+const Cvc = imports.gi.Cvc;
+const Tooltips = imports.ui.tooltips;
+const Main = imports.ui.main;
+const Settings = imports.ui.settings;
+const Slider = imports.ui.slider;
+const Pango = imports.gi.Pango;
+
+global.log("\n".repeat(50));
 
 class AudioOutputToggler extends Applet.IconApplet {
+  devices = {};
+
   constructor(metadata, orientation, panelHeight, instanceId) {
     super(orientation, panelHeight, instanceId);
 
@@ -12,114 +29,86 @@ class AudioOutputToggler extends Applet.IconApplet {
     this.set_applet_tooltip(_("Toggle Audio Output"));
     this.currentSink = "";
 
-    //
     this.menuManager = new PopupMenu.PopupMenuManager(this);
     this.menu = new Applet.AppletPopupMenu(this, orientation);
     this.menuManager.addMenu(this.menu);
 
-    this._selectOutputDeviceItem = new PopupMenu.PopupSubMenuMenuItem(
+    this.outputDevicesFold = new PopupMenu.PopupSubMenuMenuItem(
       _("Output device")
     );
 
-    this.menu.addMenuItem(this._selectOutputDeviceItem);
+    // Add sink selection to the context menu instead of applet menu
+    this._applet_context_menu.addMenuItem(this.outputDevicesFold);
 
-    this._updateSink();
-    this._buildMenu(); // Initial menu build
+    this.menu.addMenuItem(this.outputDevicesFold);
+
+    this._control = new Cvc.MixerControl({ name: "Cinnamon Volume Control" });
+    this._control.connect("output-added", (...args) =>
+      this.onDeviceOutputAdded(...args)
+    );
+    this._control.connect("output-removed", (...args) =>
+      this.onDeviceOutputRemoved(...args)
+    );
+    this._control.connect("active-output-update", (...args) =>
+      this.onDeviceOutputUpdate(...args)
+    );
+
+    this._control.open();
+  }
+
+  onDeviceOutputAdded(control, id) {
+    let device = this._control.lookup_output_id(id);
+
+    let item = new PopupMenu.PopupMenuItem(device.description);
+
+    item.connect("activate", () => {
+      global.log("activate");
+      this.devices[id].item.setShowDot(true);
+    });
+
+    let label = new St.Label({
+      text: device.origin,
+      x_align: Clutter.ActorAlign.END,
+    });
+    item.addActor(label, { expand: true });
+
+    this.outputDevicesFold.menu.addMenuItem(item);
+    this.outputDevicesFold.actor.show();
+
+    this.devices[id] = { ...device, item };
+  }
+
+  onDeviceOutputRemoved(control, id) {
+    if (this.devices[id]) {
+      this.devices[id].item.destroy();
+    }
+    delete this.devices[id];
+  }
+
+  onDeviceOutputUpdate(control, id) {
+    this.devices[id].item.setShowDot(id === this.devices[i].id);
   }
 
   on_applet_clicked(event) {
-    if (event.get_button() === 3) {
-      this._buildMenu(); // Rebuild menu on right-click
-      this.menu.toggle();
-    } else {
-      this._toggleSink();
-    }
+    global.log("click");
   }
 
   _updateSink() {
-    this.currentSink = this._getDefaultSink();
+    // this.currentSink = this._getDefaultSinkDescription();
     this.set_applet_tooltip(_(`Current Sink: ${this.currentSink}`));
   }
 
   _toggleSink() {
-    let sinks = this._getSinks();
-    if (sinks.length < 2) return;
-
-    let currentIndex = sinks.findIndex(
-      (sink) => sink.name === this.currentSink
-    );
-    let nextIndex = (currentIndex + 1) % sinks.length;
-    let newSink = sinks[nextIndex].name;
-
-    this._setSink(newSink);
-  }
-
-  _getSinks() {
-    try {
-      let [res, out] = GLib.spawn_command_line_sync("pactl list short sinks");
-      if (!res) {
-        global.logError("Error getting sinks: pactl failed");
-        return [];
-      }
-      return String(out)
-        .trim()
-        .split("\n")
-        .map((line) => {
-          let parts = line.split("\t");
-          return {
-            index: parts[0],
-            name: parts[1],
-            description: parts.slice(2).join("\t").trim(),
-          };
-        });
-    } catch (e) {
-      global.logError("Exception in _getSinks: " + e);
-      return [];
-    }
-  }
-
-  _getDefaultSink() {
-    try {
-      let [res, out] = GLib.spawn_command_line_sync("pactl get-default-sink");
-      if (!res) {
-        global.logError("Error getting default sink: pactl failed");
-        return "";
-      }
-      return String(out).trim();
-    } catch (e) {
-      global.logError("Exception in _getDefaultSink: " + e);
-      return "";
-    }
-  }
-
-  _setSink(sinkName) {
-    try {
-      Util.spawnCommandLine(`pactl set-default-sink ${sinkName}`);
-      Util.spawnCommandLine(
-        `pactl move-sink-input @DEFAULT_AUDIO_SINK@ ${sinkName}`
-      );
-    } catch (e) {
-      global.logError("Exception in _setSink: " + e);
-    }
-
-    Mainloop.timeout_add(500, () => {
-      this._updateSink();
-      this._buildMenu();
-      return false;
-    });
-  }
-
-  _buildMenu() {
-    this._selectOutputDeviceItem.menu.removeAll();
-    let sinks = this._getSinks();
-
-    sinks.forEach((sink) => {
-      let item = new PopupMenu.PopupMenuItem(sink.description);
-      item.connect("activate", () => {
-        this._setSink(sink.name);
-      });
-      this._selectOutputDeviceItem.menu.addMenuItem(item);
-    });
+    // let sinks = this._getSinks();
+    // if (sinks.length < 2) {
+    //   return;
+    // }
+    // let currentIndex = sinks.findIndex(
+    //   (sink) => sink.description === this.currentSink
+    // );
+    // let nextIndex = (currentIndex + 1) % sinks.length;
+    // let newSink = sinks[nextIndex].name;
+    // this._setSink(newSink);
   }
 }
 
