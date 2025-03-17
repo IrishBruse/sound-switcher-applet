@@ -17,13 +17,25 @@ const Settings = imports.ui.settings;
 const Slider = imports.ui.slider;
 const Pango = imports.gi.Pango;
 
-global.log("\n".repeat(50));
+global.log("\n".repeat(20));
 
 class AudioOutputToggler extends Applet.IconApplet {
   devices = {};
 
   constructor(metadata, orientation, panelHeight, instanceId) {
     super(orientation, panelHeight, instanceId);
+
+    this.setAllowedLayout(Applet.AllowedLayout.BOTH);
+
+    this.metadata = metadata;
+    this.settings = new Settings.AppletSettings(
+      this,
+      metadata.uuid,
+      instanceId
+    );
+
+    this.settings.bind("outputOriginA", "outputOriginA");
+    this.settings.bind("outputDescriptionA", "outputDescriptionA");
 
     this.set_applet_icon_symbolic_name("audio-speakers");
     this.set_applet_tooltip(_("Toggle Audio Output"));
@@ -62,8 +74,14 @@ class AudioOutputToggler extends Applet.IconApplet {
     let item = new PopupMenu.PopupMenuItem(device.description);
 
     item.connect("activate", () => {
-      global.log("activate");
-      this.devices[id].item.setShowDot(true);
+      const device = this.devices[id];
+      device.item.setShowDot(true);
+
+      global.log(device.description);
+      global.log(device.origin);
+
+      this.settings.setValue("outputDescriptionA", device.description);
+      this.settings.setValue("outputOriginA", device.origin);
     });
 
     let label = new St.Label({
@@ -75,7 +93,12 @@ class AudioOutputToggler extends Applet.IconApplet {
     this.outputDevicesFold.menu.addMenuItem(item);
     this.outputDevicesFold.actor.show();
 
-    this.devices[id] = { ...device, item };
+    this.devices[id] = {
+      id,
+      description: device.description,
+      origin: device.origin,
+      item,
+    };
   }
 
   onDeviceOutputRemoved(control, id) {
@@ -91,24 +114,8 @@ class AudioOutputToggler extends Applet.IconApplet {
 
   on_applet_clicked(event) {
     global.log("click");
-  }
 
-  _updateSink() {
-    // this.currentSink = this._getDefaultSinkDescription();
-    this.set_applet_tooltip(_(`Current Sink: ${this.currentSink}`));
-  }
-
-  _toggleSink() {
-    // let sinks = this._getSinks();
-    // if (sinks.length < 2) {
-    //   return;
-    // }
-    // let currentIndex = sinks.findIndex(
-    //   (sink) => sink.description === this.currentSink
-    // );
-    // let nextIndex = (currentIndex + 1) % sinks.length;
-    // let newSink = sinks[nextIndex].name;
-    // this._setSink(newSink);
+    this._control.change_output(this.devices[id]);
   }
 }
 
