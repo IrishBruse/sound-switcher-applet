@@ -1,25 +1,19 @@
 {
-  "name": "audio-switcher-applet",
+  "name": "sound-switcher",
+  "author": "ethanconneely.com",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "test.js",
   "scripts": {
-    "watch": "npm-watch reload",
-    "reload": "dbus-send --session --dest=org.Cinnamon.LookingGlass --type=method_call /org/Cinnamon/LookingGlass org.Cinnamon.LookingGlass.ReloadExtension string:sound-switcher@ethanconneely.com string:'APPLET'"
+    "link": "ln -s -d $(realpath ./sound-switcher@ethanconneely.com) ~/.local/share/cinnamon/applets/",
+    "dev": "cinnamon-looking-glass",
+    "watch": "tsx watch --include src/applet.ts build.ts"
   },
   "keywords": [],
-  "author": "",
   "devDependencies": {
-    "@ci-types/cjs": "^6.0.2-5",
-    "npm-watch": "^0.13.0"
-  },
-  "watch": {
-    "reload": {
-      "patterns": [
-        "sound-switcher@ethanconneely.com"
-      ],
-      "extensions": "js,json",
-      "quiet": false
-    }
+    "@types/node": "^22.13.10",
+    "esbuild": "0.25.1",
+    "tsx": "^4.19.3"
   }
 }

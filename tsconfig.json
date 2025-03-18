@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "types": ["./types"],
+    "target": "es2017",
+    "lib": ["es2017"],
+    "module": "commonjs",
+    "allowImportingTsExtensions": false,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/*.ts", "lib/*", "types/cjs/global.d.ts"]
+}

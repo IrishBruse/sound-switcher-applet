@@ -1,5 +1,0 @@
-{
-  "compileOptions": {
-    "types": ["@ci-types/cjs"]
-  }
-}

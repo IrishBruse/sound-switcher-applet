@@ -1,7 +1,5 @@
 {
   "uuid": "sound-switcher@ethanconneely.com",
-  "name": "Sound Switcher 0.0.2",
-  "description": "A Cinnamon applet to toggle between 2 audio outputs",
-  "icon": "cs-sound",
-  "tes": "asd"
+  "name": "Sound Switcher 1.0.0",
+  "description": "A Cinnamon applet to toggle between 2 audio outputs"
 }
