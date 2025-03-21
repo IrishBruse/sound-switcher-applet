@@ -5,11 +5,11 @@ export const settings: Settings = {
     type: "section",
     description: "Menu",
   },
-  keyOpen: {
+  toggleKey: {
     type: "keybinding",
-    description: "Show menu",
-    default: "<Super>k",
-    tooltip: "Set keybinding(s) to show the sound applet menu.",
+    description: "Audio Toggle",
+    default: "<Super>l",
+    tooltip: "Set keybinding(s) to toggle active audio device.",
   },
   outputDeviceA: {
     type: "entry",

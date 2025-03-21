@@ -19,7 +19,6 @@ type Setting =
   | SectionHeaderSetting
   | SoundFileChooserSetting
   | SpinButtonSetting
-  | SpinButtonSetting
   | TextViewSetting;
 
 type BaseSetting = {
@@ -89,7 +88,7 @@ type CustomSetting = {
   type: "custom";
   file: string;
   widget: string;
-  default?: any;
+  default?: unknown;
 } & BaseSetting;
 
 type RadioSetting = {

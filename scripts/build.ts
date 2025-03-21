@@ -1,26 +1,32 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { build, BuildOptions, Plugin } from "esbuild";
 import { readFileSync, mkdirSync } from "fs";
 import { readFile, writeFile } from "fs/promises";
-import { metadata } from "./src/metadata";
-import { settings } from "./src/settings";
+import { metadata } from "../src/metadata";
+import { settings } from "../src/settings";
 import { exec } from "child_process";
 
-const pkg = JSON.parse(readFileSync("./package.json").toString());
+const pkg = JSON.parse(readFileSync("./package.json").toString()) as {
+  name: string;
+  author: string;
+};
 const extensionName = pkg.name + "@" + pkg.author;
 
 try {
   mkdirSync(extensionName);
-} catch (error) {}
+} catch (error) {
+  //
+}
 
-const blue = (message: string) => `\x1b[34m${message}\x1b[0m`;
 const red = (message: string) => `\x1b[31m${message}\x1b[0m`;
 const green = (message: string) => `\x1b[32m${message}\x1b[0m`;
+const blue = (message: string) => `\x1b[34m${message}\x1b[0m`;
 
 const metadataJson = JSON.stringify(metadata, null, 2);
-writeFile(extensionName + "/metadata.json", metadataJson);
+await writeFile(extensionName + "/metadata.json", metadataJson);
 
 const settingsJson = JSON.stringify(settings, null, 2);
-writeFile(extensionName + "/settings-schema.json", settingsJson);
+await writeFile(extensionName + "/settings-schema.json", settingsJson);
 
 const importToNamespace: Plugin = {
   name: "cinnamon",
@@ -158,10 +164,10 @@ const config: BuildOptions = {
   logLevel: "info",
   plugins: [importToNamespace],
   outdir: "./" + extensionName,
-  inject: ["./lib/console-shim.js"],
+  inject: ["./lib/global-shims.js"],
 };
 
-build(config);
+await build(config);
 
 exec(
   `dbus-send --session --dest=org.Cinnamon.LookingGlass --type=method_call /org/Cinnamon/LookingGlass org.Cinnamon.LookingGlass.ReloadExtension string:${extensionName} string:'APPLET'`
@@ -172,7 +178,7 @@ function tokenize(content: string): Token[] {
   const tokens: Token[] = [];
 
   while (remaining.length > 0) {
-    remaining = consumeWhitespace(remaining, tokens);
+    remaining = consumeWhitespace(remaining);
     remaining = consumePunctuation(remaining, tokens);
     remaining = consumeString(remaining, tokens);
     remaining = consumeIdentifier(remaining, tokens);
@@ -182,7 +188,7 @@ function tokenize(content: string): Token[] {
   return tokens;
 }
 
-function consumeWhitespace(content: string, tokens: Token[]): string {
+function consumeWhitespace(content: string): string {
   let consumed = 0;
   while (consumed < content.length && isWhitespace(content[consumed])) {
     consumed++;

@@ -304,9 +304,6 @@ declare module "ui.notificationDaemon" {
 declare module "ui.osdWindow" {
   export = imports.ui.osdWindow;
 }
-declare module "ui.overrides" {
-  export = imports.ui.overrides;
-}
 declare module "ui.overview" {
   export = imports.ui.overview;
 }

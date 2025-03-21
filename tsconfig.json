@@ -8,9 +8,9 @@
     "allowImportingTsExtensions": false,
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "allowJs": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/*.ts", "lib/*"]
+  "include": ["src/*.ts"],
+  "exclude": ["node_modules/@types/node", "scripts"]
 }

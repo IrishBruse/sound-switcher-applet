@@ -8,20 +8,21 @@
   "scripts": {
     "link": "ln -s -d $(realpath ./sound-switcher@ethanconneely.com) ~/.local/share/cinnamon/applets/",
     "dev": "cinnamon-looking-glass",
-    "watch": "tsx watch --include src/applet.ts build.ts"
+    "watch": "tsx watch --include src/applet.ts scripts/build.ts"
   },
   "keywords": [],
   "dependencies": {
+    "@ci-types/cjs": "^6.0.2-5",
     "@girs/clutter-16": "^16.0.0-4.0.0-beta.21",
+    "@girs/cvc-1.0": "^1.0.0-4.0.0-beta.21",
     "@girs/gio-2.0": "^2.83.3-4.0.0-beta.21",
     "@girs/gjs": "^4.0.0-beta.21",
     "@girs/glib-2.0": "^2.83.3-4.0.0-beta.21",
-    "@girs/st-16": "^16.0.0-4.0.0-beta.21",
-    "@girs/cvc-1.0": "^1.0.0-4.0.0-beta.21",
-    "@ci-types/cjs": "^6.0.2-5"
+    "@girs/st-16": "^16.0.0-4.0.0-beta.21"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
+    "@types/node": "^22.13.11",
     "esbuild": "0.25.1",
     "eslint": "^9.22.0",
     "tsx": "^4.19.3",

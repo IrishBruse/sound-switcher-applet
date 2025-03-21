@@ -3,42 +3,53 @@ var consoleLog = global.log;
 var consoleWarn = global.logWarning;
 var consoleError = global.logError;
 var consoleTrace = global.logTrace;
+var t = (val) => {
+  return _(val);
+};
 const St = imports.gi.St;
-const Applet = imports.ui.applet;
+const applet = imports.ui.applet;
 const Clutter = imports.gi.Clutter;
+const Main = imports.ui.main;
 const Cvc = imports.gi.Cvc;
 const popupMenu = imports.ui.popupMenu;
 const settings = imports.ui.settings;
-consoleLog("\n".repeat(20));
-class AudioOutputToggler extends Applet.IconApplet {
+const lang = imports.lang;
+consoleWarn("-".repeat(200));
+class AudioOutputToggler extends applet.IconApplet {
   constructor(metadata, orientation, panelHeight, instanceId) {
     super(orientation, panelHeight, instanceId);
     this.selectedDevice = {
       A: -1,
       B: -1
     };
+    this.isDeviceA = true;
     this.devices = {};
-    this.setAllowedLayout(Applet.AllowedLayout.BOTH);
+    this.outputDeviceA = "";
+    this.outputDeviceB = "";
+    this.toggleKey = "";
+    this.setAllowedLayout(applet.AllowedLayout.BOTH);
     this.metadata = metadata;
     this.settings = new settings.AppletSettings(
       this,
       metadata.uuid,
       instanceId
     );
+    this.settings.bind("toggleKey", "toggleKey", () => this._setKeybinding());
+    this._setKeybinding();
     this.settings.bind("outputDeviceA", "outputDeviceA");
     this.settings.bind("outputDeviceB", "outputDeviceB");
     this.set_applet_icon_symbolic_name("audio-speakers");
-    this.set_applet_tooltip(_("Toggle Audio Output"));
+    this.set_applet_tooltip(t("Toggle Audio Output"));
     this.menuManager = new popupMenu.PopupMenuManager(this);
-    this.menu = new Applet.AppletPopupMenu(this, orientation);
+    this.menu = new applet.AppletPopupMenu(this, orientation);
     this.menuManager.addMenu(this.menu);
     this.outputDevicesADropdown = new popupMenu.PopupSubMenuMenuItem(
-      _("Output A")
+      t("Output A")
     );
     this._applet_context_menu.addMenuItem(this.outputDevicesADropdown);
     this.menu.addMenuItem(this.outputDevicesADropdown);
     this.outputDevicesBDropdown = new popupMenu.PopupSubMenuMenuItem(
-      _("Output B")
+      t("Output B")
     );
     this._applet_context_menu.addMenuItem(this.outputDevicesBDropdown);
     this.menu.addMenuItem(this.outputDevicesBDropdown);
@@ -53,16 +64,30 @@ class AudioOutputToggler extends Applet.IconApplet {
     );
     this._control.open();
   }
+  _setKeybinding() {
+    Main.keybindingManager.addHotKey(
+      "sound-switch-" + this.instance_id,
+      this.toggleKey,
+      lang.bind(this, () => this.toggleAudioDevice())
+    );
+  }
   onDeviceOutputAdded(owner, id) {
     const device = this._control.lookup_output_id(id);
-    consoleLog(device.origin, device.description);
     const itemA = this.createPopupItem(device, id, "A");
-    this.outputDevicesBDropdown.menu.addMenuItem(itemA);
+    this.outputDevicesADropdown.menu.addMenuItem(itemA);
     const itemB = this.createPopupItem(device, id, "B");
-    this.outputDevicesADropdown.menu.addMenuItem(itemB);
+    this.outputDevicesBDropdown.menu.addMenuItem(itemB);
+    const deviceIdentifier = device.origin + " - " + device.description;
+    if (deviceIdentifier === this.outputDeviceA) {
+      itemA.setShowDot(true);
+      this.selectedDevice.A = id;
+    }
+    if (deviceIdentifier === this.outputDeviceB) {
+      itemB.setShowDot(true);
+      this.selectedDevice.B = id;
+    }
     this.devices[id] = {
-      description: device.description,
-      origin: device.origin,
+      native: device,
       item: {
         A: itemA,
         B: itemB
@@ -77,11 +102,12 @@ class AudioOutputToggler extends Applet.IconApplet {
         prevDevice.item[type].setShowDot(false);
       }
       const device2 = this.devices[id];
+      const native = device2.native;
       this.selectedDevice[type] = id;
       device2.item[type].setShowDot(id === this.selectedDevice[type]);
       this.settings.setValue(
         "outputDevice" + type,
-        device2.description + " - " + device2.origin
+        native.origin + " - " + native.description
       );
       return Clutter.EVENT_STOP;
     });
@@ -101,9 +127,19 @@ class AudioOutputToggler extends Applet.IconApplet {
       delete this.devices[id];
     }
   }
-  on_applet_clicked(event) {
-    log("click");
+  on_applet_clicked() {
+    this.toggleAudioDevice();
     return true;
+  }
+  toggleAudioDevice() {
+    if (this.isDeviceA) {
+      const newDevice = this.devices[this.selectedDevice.A];
+      this._control.change_output(newDevice.native);
+    } else {
+      const newDevice = this.devices[this.selectedDevice.B];
+      this._control.change_output(newDevice.native);
+    }
+    this.isDeviceA = !this.isDeviceA;
   }
 }
 function main(metadata, orientation, panelHeight, instanceId) {
