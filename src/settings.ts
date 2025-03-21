@@ -11,28 +11,16 @@ export const settings: Settings = {
     default: "<Super>k",
     tooltip: "Set keybinding(s) to show the sound applet menu.",
   },
-  outputOriginA: {
+  outputDeviceA: {
     type: "entry",
     default: "",
-    description: "Output Device A Origin",
-    tooltip: "Output Device A Origin",
+    description: "Output Device A",
+    tooltip: "Output Device A",
   },
-  outputDescriptionA: {
+  outputDeviceB: {
     type: "entry",
     default: "",
-    description: "Output Device A Description",
-    tooltip: "Output Device A Description",
-  },
-  outputOriginB: {
-    type: "entry",
-    default: "",
-    description: "Output Device B Origin",
-    tooltip: "Output Device B Origin",
-  },
-  outputDescriptionB: {
-    type: "entry",
-    default: "",
-    description: "Output Device B Description",
-    tooltip: "Output Device B Description",
+    description: "Output Device B",
+    tooltip: "Output Device B",
   },
 };

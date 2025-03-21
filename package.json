@@ -11,9 +11,21 @@
     "watch": "tsx watch --include src/applet.ts build.ts"
   },
   "keywords": [],
+  "dependencies": {
+    "@girs/clutter-16": "^16.0.0-4.0.0-beta.21",
+    "@girs/gio-2.0": "^2.83.3-4.0.0-beta.21",
+    "@girs/gjs": "^4.0.0-beta.21",
+    "@girs/glib-2.0": "^2.83.3-4.0.0-beta.21",
+    "@girs/st-16": "^16.0.0-4.0.0-beta.21",
+    "@girs/cvc-1.0": "^1.0.0-4.0.0-beta.21",
+    "@ci-types/cjs": "^6.0.2-5"
+  },
   "devDependencies": {
-    "@types/node": "^22.13.10",
+    "@eslint/js": "^9.22.0",
     "esbuild": "0.25.1",
-    "tsx": "^4.19.3"
+    "eslint": "^9.22.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.27.0"
   }
 }

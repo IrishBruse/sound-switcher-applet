@@ -1,10 +1,10 @@
-let consolelog = log;
-let warn = global.logWarning;
-let error = global.logError;
-let trace = global.logTrace;
+let consoleLog = global.log;
+let consoleWarn = global.logWarning;
+let consoleError = global.logError;
+let consoleTrace = global.logTrace;
 export {
-  consolelog as "console.log",
-  warn as "console.warn",
-  error as "console.error",
-  trace as "console.trace",
+  consoleLog as "console.log",
+  consoleWarn as "console.warn",
+  consoleError as "console.error",
+  consoleTrace as "console.trace",
 };

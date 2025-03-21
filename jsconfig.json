@@ -12,5 +12,6 @@
     "allowJs": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/*.ts", "lib/*"]
+  "include": ["**/*.js"],
+  "exclude": ["eslint.config.js"]
 }

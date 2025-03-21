@@ -19,4 +19,11 @@ export type Metadata = {
   extensionID?: string;
   externalConfigurationApp?: string;
   preventDecorations?: boolean;
+} & MetadataRuntime;
+
+type MetadataRuntime = {
+  state: number;
+  path: string;
+  error: string;
+  force_loaded: boolean;
 };
