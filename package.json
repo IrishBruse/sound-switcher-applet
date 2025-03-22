@@ -7,7 +7,7 @@
   "main": "test.js",
   "scripts": {
     "console": "cinnamon-looking-glass",
-    "watch": "tsx watch --include src/applet.ts scripts/build.ts",
+    "watch": "tsx watch scripts/build.ts --include src/applet.ts --include src/settings.ts --include src/metadata.ts ",
     "link": "tsx scripts/link.ts"
   },
   "keywords": [],

@@ -9,7 +9,7 @@ import settings from "ui.settings";
 import type { Metadata } from "../lib/metadata";
 import lang from "lang";
 
-console.warn("-".repeat(200));
+// console.warn("-".repeat(200));
 
 interface Device {
   native: Cvc.MixerUIDevice;

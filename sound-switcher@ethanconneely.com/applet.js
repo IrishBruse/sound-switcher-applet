@@ -15,7 +15,6 @@ const Cvc = imports.gi.Cvc;
 const popupMenu = imports.ui.popupMenu;
 const settings = imports.ui.settings;
 const lang = imports.lang;
-consoleWarn("-".repeat(200));
 class AudioOutputToggler extends applet.IconApplet {
   constructor(metadata, orientation, panelHeight, instanceId) {
     super(orientation, panelHeight, instanceId);
