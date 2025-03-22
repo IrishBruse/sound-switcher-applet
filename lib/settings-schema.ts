@@ -137,14 +137,14 @@ type ButtonSetting = {
 
 type GenericSetting = {
   type: "generic";
-  default?: any;
-  [key: string]: any; // can i move
+  default?: unknown;
+  [key: string]: unknown;
 } & BaseDefaultSetting;
 
 type ListSetting = {
   type: "list";
   columns: Column[];
-  default: any[];
+  default: unknown[];
   "show-buttons"?: boolean;
   width?: number;
   height?: number;
@@ -161,7 +161,7 @@ type Column = {
     | "string"
     | "icon"
     | "file";
-  default?: any;
+  default?: unknown;
   align?: number;
   options?: Record<string, string | number>;
   "select-dir"?: boolean;
@@ -172,5 +172,5 @@ type LayoutSetting = {
   width?: number;
   height?: number;
   pages: string[];
-  [key: string]: {};
+  [key: string]: unknown;
 } & BaseSetting;

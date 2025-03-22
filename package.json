@@ -6,9 +6,9 @@
   "type": "module",
   "main": "test.js",
   "scripts": {
-    "link": "ln -s -d $(realpath ./sound-switcher@ethanconneely.com) ~/.local/share/cinnamon/applets/",
     "dev": "cinnamon-looking-glass",
-    "watch": "tsx watch --include src/applet.ts scripts/build.ts"
+    "watch": "tsx watch --include src/applet.ts scripts/build.ts",
+    "link": "tsx scripts/link.ts"
   },
   "keywords": [],
   "dependencies": {

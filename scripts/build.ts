@@ -1,16 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { build, BuildOptions, Plugin } from "esbuild";
-import { readFileSync, mkdirSync } from "fs";
+import { mkdirSync } from "fs";
 import { readFile, writeFile } from "fs/promises";
 import { metadata } from "../src/metadata";
 import { settings } from "../src/settings";
 import { exec } from "child_process";
+import { getExtensionFolder } from "./utilities";
 
-const pkg = JSON.parse(readFileSync("./package.json").toString()) as {
-  name: string;
-  author: string;
-};
-const extensionName = pkg.name + "@" + pkg.author;
+const extensionName = getExtensionFolder();
 
 try {
   mkdirSync(extensionName);
