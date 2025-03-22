@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/triple-slash-reference */
 /// <reference path="imports.d.ts"/>
 
-declare const console = {
-  log: global.log,
-  warn: global.logWarning,
-  error: global.logError,
-  trace: global.logTrace,
+declare type Console = {
+  log: typeof global.log;
+  warn: typeof global.logWarning;
+  error: typeof global.logError;
+  trace: typeof global.logTrace;
 };
 
-function _(s: string): string;
+declare const console: Console;
+
+declare function _(s: string): string;

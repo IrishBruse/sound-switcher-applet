@@ -1,5 +1,3 @@
-// https://github.com/IrishBruse/sound-switcher-applet
-
 import St from "gi.St";
 import applet from "ui.applet";
 import Clutter from "gi.Clutter";
@@ -38,9 +36,11 @@ class AudioOutputToggler extends applet.IconApplet {
   _control: Cvc.MixerControl;
   devices: Record<string, Device> = {};
 
-  outputDeviceA: string = "";
-  outputDeviceB: string = "";
-  toggleKey: string = "";
+  outputDeviceA = "";
+  outputDeviceB = "";
+  toggleKey = "";
+  outputDeviceAIcon = "";
+  outputDeviceBIcon = "";
 
   constructor(
     metadata: Metadata,
@@ -65,7 +65,11 @@ class AudioOutputToggler extends applet.IconApplet {
     this.settings.bind("outputDeviceA", "outputDeviceA");
     this.settings.bind("outputDeviceB", "outputDeviceB");
 
-    this.set_applet_icon_symbolic_name("audio-speakers");
+    this.settings.bind("outputDeviceAIcon", "outputDeviceAIcon");
+    this.settings.bind("outputDeviceBIcon", "outputDeviceBIcon");
+
+    this.set_applet_icon_name(this.outputDeviceBIcon);
+
     this.set_applet_tooltip(_("Toggle Audio Output"));
 
     this.menuManager = new popupMenu.PopupMenuManager(this);
@@ -182,9 +186,11 @@ class AudioOutputToggler extends applet.IconApplet {
     if (this.isDeviceA) {
       const newDevice = this.devices[this.selectedDevice.A];
       this._control.change_output(newDevice.native);
+      this.set_applet_icon_name(this.outputDeviceAIcon);
     } else {
       const newDevice = this.devices[this.selectedDevice.B];
       this._control.change_output(newDevice.native);
+      this.set_applet_icon_name(this.outputDeviceBIcon);
     }
 
     this.isDeviceA = !this.isDeviceA;

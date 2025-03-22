@@ -145,14 +145,8 @@ declare module "gi.Soup" {
 declare module "gi.Soup.MAJOR_VERSION" {
   export = imports.gi.Soup.MAJOR_VERSION;
 }
-declare module "gi.Soup.SessionAsync" {
-  export = imports.gi.Soup.SessionAsync;
-}
 declare module "gi.St" {
   export = imports.gi.St;
-}
-declare module "gi.St.AddOptions" {
-  export = imports.gi.St.AddOptions;
 }
 declare module "gi.St.BoxLayout" {
   export = imports.gi.St.BoxLayout;
@@ -177,12 +171,6 @@ declare module "gi.St.Side" {
 }
 declare module "gi.St.ThemeNode" {
   export = imports.gi.St.ThemeNode;
-}
-declare module "gi.versions.Gtk" {
-  export = imports.gi.versions.Gtk;
-}
-declare module "gi.versions.Soup" {
-  export = imports.gi.versions.Soup;
 }
 declare module "gi.WebKit2" {
   export = imports.gi.WebKit2;
@@ -259,9 +247,6 @@ declare module "ui.dnd" {
 declare module "ui.edgeFlip" {
   export = imports.ui.edgeFlip;
 }
-declare module "ui.environment" {
-  export = imports.ui.environment;
-}
 declare module "ui.expo" {
   export = imports.ui.expo;
 }
@@ -288,9 +273,6 @@ declare module "ui.magnifier" {
 }
 declare module "ui.main" {
   export = imports.ui.main;
-}
-declare module "ui.main.CjsError" {
-  export = imports.ui.main.CjsError;
 }
 declare module "ui.messageTray" {
   export = imports.ui.messageTray;

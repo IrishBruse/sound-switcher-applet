@@ -1,4 +1,5 @@
 "use strict";
+//! https://github.com/IrishBruse/sound-switcher-applet
 var consoleLog = global.log;
 var consoleWarn = global.logWarning;
 var consoleError = global.logError;
@@ -27,6 +28,8 @@ class AudioOutputToggler extends applet.IconApplet {
     this.outputDeviceA = "";
     this.outputDeviceB = "";
     this.toggleKey = "";
+    this.outputDeviceAIcon = "";
+    this.outputDeviceBIcon = "";
     this.setAllowedLayout(applet.AllowedLayout.BOTH);
     this.metadata = metadata;
     this.settings = new settings.AppletSettings(
@@ -38,7 +41,9 @@ class AudioOutputToggler extends applet.IconApplet {
     this._setKeybinding();
     this.settings.bind("outputDeviceA", "outputDeviceA");
     this.settings.bind("outputDeviceB", "outputDeviceB");
-    this.set_applet_icon_symbolic_name("audio-speakers");
+    this.settings.bind("outputDeviceAIcon", "outputDeviceAIcon");
+    this.settings.bind("outputDeviceBIcon", "outputDeviceBIcon");
+    this.set_applet_icon_name(this.outputDeviceBIcon);
     this.set_applet_tooltip(t("Toggle Audio Output"));
     this.menuManager = new popupMenu.PopupMenuManager(this);
     this.menu = new applet.AppletPopupMenu(this, orientation);
@@ -135,9 +140,11 @@ class AudioOutputToggler extends applet.IconApplet {
     if (this.isDeviceA) {
       const newDevice = this.devices[this.selectedDevice.A];
       this._control.change_output(newDevice.native);
+      this.set_applet_icon_name(this.outputDeviceAIcon);
     } else {
       const newDevice = this.devices[this.selectedDevice.B];
       this._control.change_output(newDevice.native);
+      this.set_applet_icon_name(this.outputDeviceBIcon);
     }
     this.isDeviceA = !this.isDeviceA;
   }

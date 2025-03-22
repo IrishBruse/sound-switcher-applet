@@ -23,4 +23,14 @@ export const settings: Settings = {
     description: "Output Device B",
     tooltip: "Output Device B",
   },
+  outputDeviceAIcon: {
+    type: "iconfilechooser",
+    default: "audio-headphones-symbolic",
+    description: "Device A Icon",
+  },
+  outputDeviceBIcon: {
+    type: "iconfilechooser",
+    default: "",
+    description: "Device B Icon",
+  },
 };
