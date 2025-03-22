@@ -6,7 +6,7 @@
   "type": "module",
   "main": "test.js",
   "scripts": {
-    "dev": "cinnamon-looking-glass",
+    "console": "cinnamon-looking-glass",
     "watch": "tsx watch --include src/applet.ts scripts/build.ts",
     "link": "tsx scripts/link.ts"
   },

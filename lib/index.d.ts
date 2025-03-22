@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/triple-slash-reference */
-/// <reference path="imports.d.ts"/>
+import "./overrides";
+import "./imports";
 
 declare type Console = {
   log: typeof global.log;
@@ -8,6 +8,7 @@ declare type Console = {
   trace: typeof global.logTrace;
 };
 
-declare const console: Console;
-
-declare function _(s: string): string;
+declare global {
+  const console: Console;
+  function _(s: string): string;
+}

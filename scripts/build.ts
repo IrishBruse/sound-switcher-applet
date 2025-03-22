@@ -3,7 +3,7 @@ import { build, BuildOptions, Plugin } from "esbuild";
 import { mkdirSync } from "fs";
 import { readFile, writeFile } from "fs/promises";
 import { metadata } from "../src/metadata";
-import { settings } from "../src/settings";
+import { Settings } from "../src/settings";
 import { exec } from "child_process";
 import { getExtensionFolder } from "./utilities";
 
@@ -22,7 +22,7 @@ const blue = (message: string) => `\x1b[34m${message}\x1b[0m`;
 const metadataJson = JSON.stringify(metadata, null, 2);
 await writeFile(extensionName + "/metadata.json", metadataJson);
 
-const settingsJson = JSON.stringify(settings, null, 2);
+const settingsJson = JSON.stringify(Settings, null, 2);
 await writeFile(extensionName + "/settings-schema.json", settingsJson);
 
 const importToNamespace: Plugin = {

@@ -1,4 +1,4 @@
-export type Settings = Record<string, Setting>;
+export type SettingsSchema = Record<string, Setting>;
 
 type Setting =
   | ButtonSetting

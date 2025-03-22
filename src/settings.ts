@@ -1,6 +1,6 @@
-import type { Settings } from "../lib/settings-schema";
+import type { SettingsSchema } from "../lib/settings-schema";
 
-export const settings: Settings = {
+export const Settings = {
   section1: {
     type: "section",
     description: "Menu",
@@ -33,4 +33,4 @@ export const settings: Settings = {
     default: "",
     description: "Device B Icon",
   },
-};
+} satisfies SettingsSchema;

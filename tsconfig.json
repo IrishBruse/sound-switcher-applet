@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["@ci-types/cjs", "./lib/"],
+    "types": ["@ci-types/cjs"],
     "target": "es2017",
     "lib": ["es2017"],
     "module": "ESNext",
@@ -11,6 +11,6 @@
     "allowJs": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/*.ts"],
+  "include": ["src/*.ts", "lib/*.ts"],
   "exclude": ["node_modules/@types/node", "scripts"]
 }
