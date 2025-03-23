@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { build, BuildOptions, Plugin } from "esbuild";
-import { mkdirSync } from "fs";
+import { cpSync, mkdirSync } from "fs";
 import { readFile, writeFile } from "fs/promises";
 import { metadata } from "../src/metadata";
 import { settings } from "../src/settings";
@@ -41,6 +41,8 @@ const config: BuildOptions = {
 };
 
 await build(config);
+
+cpSync("src/po", extensionName + "/po", { recursive: true });
 
 exec(
   `dbus-send --session --dest=org.Cinnamon.LookingGlass --type=method_call /org/Cinnamon/LookingGlass org.Cinnamon.LookingGlass.ReloadExtension string:${extensionName} string:'APPLET'`

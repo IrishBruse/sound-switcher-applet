@@ -29,7 +29,6 @@ cpSync("./" + extensionName, buildDir(), { recursive: true });
 cpSync("./screenshot.png", extensionDir("/screenshot.png"));
 cpSync("./Readme.md", extensionDir("/README.md"));
 
-cpSync("./icon.png", extensionDir("/icon.png"));
 cpSync("./icon.png", buildDir("/icon.png"));
 
-writeFileSync(extensionDir("info.json"), JSON.stringify(info, null, 4));
+writeFileSync(extensionDir("info.json"), JSON.stringify(info, null, 2));
