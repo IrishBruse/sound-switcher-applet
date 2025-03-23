@@ -28,6 +28,7 @@ mkdirSync(buildDir(), {
 cpSync("./" + extensionName, buildDir(), { recursive: true });
 cpSync("./screenshot.png", extensionDir("/screenshot.png"));
 cpSync("./Readme.md", extensionDir("/README.md"));
+cpSync("./Changelog.md", extensionDir("/CHANGELOG.md"));
 
 cpSync("./icon.png", buildDir("/icon.png"));
 

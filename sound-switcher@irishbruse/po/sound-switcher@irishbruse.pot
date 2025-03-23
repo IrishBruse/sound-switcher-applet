@@ -5,7 +5,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: sound-switcher@ethanconneely.com 1.0.0\n"
+"Project-Id-Version: sound-switcher@irishbruse 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/linuxmint/cinnamon-spices-applets/"
 "issues\n"
 "POT-Creation-Date: 2025-03-23 01:56+0000\n"
