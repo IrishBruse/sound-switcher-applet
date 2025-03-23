@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "test.js",
+  "main": "src/applet.ts",
   "scripts": {
     "console": "cinnamon-looking-glass",
     "watch": "tsx watch scripts/build.ts --include src/applet.ts",

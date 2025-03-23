@@ -43,6 +43,7 @@ const config: BuildOptions = {
 await build(config);
 
 cpSync("src/po", extensionName + "/po", { recursive: true });
+cpSync("icon.png", extensionName + "/icon.png");
 
 exec(
   `dbus-send --session --dest=org.Cinnamon.LookingGlass --type=method_call /org/Cinnamon/LookingGlass org.Cinnamon.LookingGlass.ReloadExtension string:${extensionName} string:'APPLET'`

@@ -29,6 +29,7 @@ export type MetadataRuntime = {
 };
 
 export type Info = {
+  /** github username */
   author: string;
   origonal_author?: string;
 };

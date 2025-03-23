@@ -4,7 +4,8 @@ A Linux Mint Cinnamon applet that toggles between two selected audio output devi
 
 ## Overview
 
-This applet provides a convenient way to switch between two predefined audio output devices directly from the Cinnamon system tray. It's designed to streamline audio management, especially for users who frequently switch between headphones and speakers, or other audio output sources.
+This applet provides a convenient way to switch between two predefined audio output devices directly from the Cinnamon system tray.
+It's designed to streamline audio management, especially for users who frequently switch between headphones and speakers, or other audio output sources.
 
 ![](./screenshot.png)
 

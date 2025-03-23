@@ -2,13 +2,14 @@
 // Generated from https://github.com/IrishBruse/sound-switcher-applet
 //
 "use strict";
-var consoleLog = () => {
-};
-var consoleTrace = () => {
-};
+var consoleLog = global.log;
+var consoleTrace = global.logTrace;
 var consoleWarn = global.logWarning;
 var consoleError = global.logError;
-var t = _;
+var t = (val) => {
+  global.log("Translate: " + val);
+  return _(val);
+};
 const St = imports.gi.St;
 const applet = imports.ui.applet;
 const Clutter = imports.gi.Clutter;

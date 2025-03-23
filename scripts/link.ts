@@ -1,6 +1,6 @@
 import { symlinkSync } from "fs";
 import path from "path";
-import { getExtensionName } from "./utilities";
+import { getExtensionName } from "./misc/utilities";
 
 const extensionName = getExtensionName();
 
