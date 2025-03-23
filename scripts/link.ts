@@ -1,8 +1,8 @@
 import { symlinkSync } from "fs";
 import path from "path";
-import { getExtensionFolder } from "./utilities";
+import { getExtensionName } from "./utilities";
 
-const extensionName = getExtensionFolder();
+const extensionName = getExtensionName();
 
 try {
   symlinkSync(

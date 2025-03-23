@@ -27,3 +27,8 @@ export type MetadataRuntime = {
   error?: string;
   force_loaded?: boolean;
 };
+
+export type Info = {
+  author: string;
+  origonal_author?: string;
+};

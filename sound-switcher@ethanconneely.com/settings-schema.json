@@ -23,12 +23,12 @@
   },
   "outputDeviceAIcon": {
     "type": "iconfilechooser",
-    "default": "audio-headphones-symbolic",
+    "default": "tv-symbolic",
     "description": "Device A Icon"
   },
   "outputDeviceBIcon": {
     "type": "iconfilechooser",
-    "default": "",
+    "default": "audio-headphones-symbolic",
     "description": "Device B Icon"
   }
 }

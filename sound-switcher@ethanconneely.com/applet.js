@@ -1,12 +1,14 @@
+//
+// Generated from https://github.com/IrishBruse/sound-switcher-applet
+//
 "use strict";
-//! https://github.com/IrishBruse/sound-switcher-applet
-var consoleLog = global.log;
+var consoleLog = () => {
+};
+var consoleTrace = () => {
+};
 var consoleWarn = global.logWarning;
 var consoleError = global.logError;
-var consoleTrace = global.logTrace;
-var t = (val) => {
-  return _(val);
-};
+var t = _;
 const St = imports.gi.St;
 const applet = imports.ui.applet;
 const Clutter = imports.gi.Clutter;
@@ -136,6 +138,7 @@ class AudioOutputToggler extends applet.IconApplet {
     return true;
   }
   toggleAudioDevice() {
+    consoleLog("Toggle " + (this.isDeviceA ? "A" : "B"));
     if (this.isDeviceA) {
       const newDevice = this.devices[this.selectedDevice.A];
       this._control.change_output(newDevice.native);

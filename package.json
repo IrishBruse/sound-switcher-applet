@@ -1,14 +1,16 @@
 {
   "name": "sound-switcher",
-  "author": "ethanconneely.com",
+  "author": "Ethan Conneely",
+  "appletName": "sound-switcher@ethanconneely.com",
   "version": "1.0.0",
   "description": "",
   "type": "module",
   "main": "test.js",
   "scripts": {
     "console": "cinnamon-looking-glass",
-    "watch": "tsx watch scripts/build.ts --include src/applet.ts --include src/settings.ts --include src/metadata.ts ",
-    "link": "tsx scripts/link.ts"
+    "watch": "tsx watch scripts/build.ts --include src/applet.ts",
+    "link": "tsx scripts/link.ts",
+    "publish": "tsx scripts/build.ts --production && tsx scripts/publish.ts"
   },
   "keywords": [],
   "dependencies": {

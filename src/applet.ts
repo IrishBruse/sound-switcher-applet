@@ -9,8 +9,6 @@ import settings from "ui.settings";
 import type { Metadata } from "../lib/metadata";
 import lang from "lang";
 
-// console.warn("-".repeat(200));
-
 interface Device {
   native: Cvc.MixerUIDevice;
   item: {
@@ -183,6 +181,8 @@ class AudioOutputToggler extends applet.IconApplet {
   }
 
   toggleAudioDevice() {
+    console.log("Toggle " + (this.isDeviceA ? "A" : "B"));
+
     if (this.isDeviceA) {
       const newDevice = this.devices[this.selectedDevice.A];
       this._control.change_output(newDevice.native);
