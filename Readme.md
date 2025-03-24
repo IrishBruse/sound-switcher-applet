@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/IrishBruse/sound-switcher-applet/main/Icon.png" height="128px"/>
+    <img src="https://raw.githubusercontent.com/IrishBruse/sound-switcher-applet/main/icon.png" height="128px"/>
 </p>
 
 # Sound Switcher Applet
