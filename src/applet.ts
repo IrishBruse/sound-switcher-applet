@@ -94,6 +94,10 @@ class AudioOutputToggler extends applet.IconApplet {
       this.onDeviceOutputRemoved(owner, id)
     );
 
+    setTimeout(() => {
+      this.setOutputDevice("A");
+    }, 100);
+
     this._control.open();
   }
 
@@ -181,19 +185,23 @@ class AudioOutputToggler extends applet.IconApplet {
   }
 
   toggleAudioDevice() {
-    console.log("Toggle " + (this.isDeviceA ? "A" : "B"));
+    const device = this.isDeviceA ? "A" : "B";
+    console.log("Toggle " + device);
 
-    if (this.isDeviceA) {
-      const newDevice = this.devices[this.selectedDevice.A];
-      this._control.change_output(newDevice.native);
-      this.set_applet_icon_name(this.outputDeviceAIcon);
-    } else {
-      const newDevice = this.devices[this.selectedDevice.B];
-      this._control.change_output(newDevice.native);
-      this.set_applet_icon_name(this.outputDeviceBIcon);
-    }
+    this.setOutputDevice(device);
 
     this.isDeviceA = !this.isDeviceA;
+  }
+
+  setOutputDevice(type: "A" | "B") {
+    const newDevice = this.devices[this.selectedDevice[type]];
+    this._control.change_output(newDevice.native);
+
+    if (type == "A") {
+      this.set_applet_icon_name(this.outputDeviceAIcon);
+    } else {
+      this.set_applet_icon_name(this.outputDeviceBIcon);
+    }
   }
 }
 

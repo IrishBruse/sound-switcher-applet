@@ -5,7 +5,8 @@ export type Metadata = {
   author?: string;
   /** -1 for unlimited */
   maxInstances?: number;
-  version?: number | string;
+  /** @deprecated extracted from package.json */
+  version?: undefined;
   multiversion?: boolean | string;
   cinnamonVersion?: string[];
   hideConfiguration?: boolean;
@@ -29,7 +30,7 @@ export type MetadataRuntime = {
 };
 
 export type Info = {
-  /** github username */
+  /** GitHub username */
   author: string;
   origonal_author?: string;
 };

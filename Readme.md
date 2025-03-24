@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="https://raw.githubusercontent.com/IrishBruse/sound-switcher-applet/main/Icon.png" height="128px"/>
+</p>
+
 # Sound Switcher Applet
 
 A Linux Mint Cinnamon applet that toggles between two selected audio output devices.

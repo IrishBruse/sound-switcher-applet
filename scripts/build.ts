@@ -5,19 +5,23 @@ import { readFile, writeFile } from "fs/promises";
 import { metadata } from "../src/metadata";
 import { settings } from "../src/settings";
 import { exec } from "child_process";
-import { getExtensionName } from "./misc/utilities";
+import { getExtensionName, getVersion } from "./misc/utilities";
 import { argv } from "process";
 import { cjsPlugin } from "./misc/cjsPlugin";
 
 const isProd = argv.includes("--production");
 
 const extensionName = getExtensionName();
+const version = getVersion();
 
 try {
   mkdirSync(extensionName);
 } catch (error) {
   //
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+(metadata as any).version = version;
 
 const metadataJson = JSON.stringify(metadata, null, 2);
 await writeFile(extensionName + "/metadata.json", metadataJson);

@@ -8,7 +8,7 @@
   "main": "src/applet.ts",
   "scripts": {
     "console": "cinnamon-looking-glass",
-    "watch": "tsx watch scripts/build.ts --include src/applet.ts",
+    "watch": "tsx watch --include src/applet.ts scripts/build.ts",
     "link": "tsx scripts/link.ts",
     "publish": "tsx scripts/build.ts --production && tsx scripts/publish.ts"
   },

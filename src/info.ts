@@ -1,5 +1,5 @@
 import type { Info } from "../lib/metadata";
 
-export const info = {
+export const info: Info = {
   author: "IrishBruse",
-} satisfies Info;
+};
