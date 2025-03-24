@@ -2,7 +2,7 @@
   "name": "sound-switcher",
   "author": "Ethan Conneely",
   "appletName": "sound-switcher@irishbruse",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "type": "module",
   "main": "src/applet.ts",
