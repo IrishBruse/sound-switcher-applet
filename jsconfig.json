@@ -9,7 +9,8 @@
     "strict": true,
     "esModuleInterop": true,
     "allowJs": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "exactOptionalPropertyTypes": true
   },
   "include": ["**/*.js"],
   "exclude": ["eslint.config.js"]

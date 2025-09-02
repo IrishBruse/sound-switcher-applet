@@ -1,13 +1,13 @@
+import Clutter from "gi.Clutter";
 import St from "gi.St";
 import applet from "ui.applet";
-import Clutter from "gi.Clutter";
 import Main from "ui.main";
 
 import Cvc from "gi.Cvc";
+import lang from "lang";
 import popupMenu from "ui.popupMenu";
 import settings from "ui.settings";
 import type { Metadata } from "../lib/metadata";
-import lang from "lang";
 
 interface Device {
   native: Cvc.MixerUIDevice;
@@ -93,10 +93,7 @@ class AudioOutputToggler extends applet.IconApplet {
     this._control.connect("output-removed", (owner, id) =>
       this.onDeviceOutputRemoved(owner, id)
     );
-
-    setTimeout(() => {
-      this.setOutputDevice("A");
-    }, 100);
+    this._control.connect("state-changed", () => this._initializeState());
 
     this._control.open();
   }
@@ -186,7 +183,7 @@ class AudioOutputToggler extends applet.IconApplet {
 
   toggleAudioDevice() {
     const device = this.isDeviceA ? "A" : "B";
-    console.log("Toggle " + device);
+    console.log("Set to " + device);
 
     this.setOutputDevice(device);
 
@@ -203,6 +200,11 @@ class AudioOutputToggler extends applet.IconApplet {
       this.set_applet_icon_name(this.outputDeviceBIcon);
     }
   }
+
+  _initializeState() {
+    this.setOutputDevice("A");
+    this.isDeviceA = false;
+  }
 }
 
 function main(
@@ -211,6 +213,8 @@ function main(
   panelHeight: number,
   instanceId: number
 ) {
+  console.log("\n".repeat(10));
+
   return new AudioOutputToggler(metadata, orientation, panelHeight, instanceId);
 }
 

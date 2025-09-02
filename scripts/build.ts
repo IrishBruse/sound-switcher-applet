@@ -20,7 +20,7 @@ try {
   //
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (metadata as any).version = version;
 
 const metadataJson = JSON.stringify(metadata, null, 2);

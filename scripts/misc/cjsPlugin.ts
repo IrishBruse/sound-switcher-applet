@@ -10,8 +10,6 @@ export const cjsPlugin: Plugin = {
       let contents = await readFile(args.path, "utf8");
 
       contents = contents.replace(/import.*/g, (match: string) => {
-        console.log(match);
-
         const tokens = tokenize(match);
 
         let tokenIndex = 0;
@@ -26,12 +24,6 @@ export const cjsPlugin: Plugin = {
                 red(`${token.type} !== ${expected} : ${token.text} !== ${text}`)
               );
               process.exit(-1);
-            } else {
-              if (token.type === token.text) {
-                // console.log(blue(token.text));
-              } else {
-                // console.log(blue(token.type + ": " + token.text));
-              }
             }
           }
           return token;
@@ -55,7 +47,6 @@ export const cjsPlugin: Plugin = {
         let token = eat();
 
         if (token.type === "type") {
-          console.log();
           return "";
         }
 
@@ -117,10 +108,8 @@ export const cjsPlugin: Plugin = {
               .join(", ")} } = imports.${importName.text};`
           );
         }
-        const output = lines.join("\n");
-        console.log(output + "\n");
 
-        return output;
+        return lines.join("\n");
       });
 
       contents = contents.replace("export default main;", "");
